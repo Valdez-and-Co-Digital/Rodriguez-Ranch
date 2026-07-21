@@ -853,6 +853,10 @@ function generateCheckoutTimeSlots(selectedDate) {
   const timeSelect = document.getElementById('pickup-time');
   if (!timeSelect) return;
   
+  if (!selectedDate) {
+    selectedDate = new Date().toISOString().split('T')[0];
+  }
+  
   const open = state.settings.openTime || DEFAULTS.openTime;
   const close = state.settings.closeTime || DEFAULTS.closeTime;
   const blockedDates = Array.isArray(state.settings.blockedDates) ? state.settings.blockedDates : [];
@@ -1081,6 +1085,7 @@ function initEventListeners() {
     dateInput.setAttribute('min', today); 
     dateInput.value = today; 
     dateInput.addEventListener('change', (e) => generateCheckoutTimeSlots(e.target.value));
+    generateCheckoutTimeSlots(today);
   }
 
   // Backdrop click to close modals
