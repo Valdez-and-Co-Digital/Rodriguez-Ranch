@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rodriguez Ranch - Fresh Eggs & Kittens Since 1856</title>
+  <meta name="description"
+    content="Rodriguez Ranch in Texas offers farm-fresh organic eggs for sale (packs of 12 and 18) and adorable kittens. Established in 1856. Order online today!">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Montserrat:wght@400;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- Promotion Ribbon (Toggled by Admin) -->
+  <div id="promo-ribbon" class="promo-ribbon hidden">
+    <div class="promo-content">
+      <i class="fa-solid fa-cat animate-bounce"></i>
+      <span><strong>Exciting News!</strong> Adorable new kittens are currently available at the ranch. <a
+          href="#kittens" class="ribbon-link">Meet them now &rarr;</a></span>
+    </div>
+  </div>
+
+  <!-- Header & Navigation -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="#" class="logo-area">
+        <img src="assets/ranch_logo.png" alt="Rodriguez Ranch Logo" class="header-logo">
+        <div class="logo-text">
+          <span class="brand-name">Rodriguez Ranch</span>
+          <span class="est-tag">Est. 1856</span>
+        </div>
+      </a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#eggs" class="nav-link">Fresh Eggs</a></li>
+          <li><a href="#kittens" id="nav-link-kittens" class="nav-link">Kittens</a></li>
+          <li><a href="#about" class="nav-link">Our Story</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button id="btn-auth-header" class="btn btn-outline btn-sm">
+          <i class="fa-solid fa-user"></i> Sign In
+        </button>
+        <a href="#eggs" class="btn btn-primary btn-sm"><i class="fa-solid fa-basket-shopping"></i> Order Eggs</a>
+        <button class="mobile-nav-toggle" aria-label="Toggle menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero-section">
+    <div class="hero-bg"
+      style="background-image: linear-gradient(to bottom, rgba(28,25,23,0.3) 0%, rgba(28,25,23,0.85) 100%), url('assets/ranch_sunset.png');">
+    </div>
+    <div class="container hero-container">
+      <div class="hero-content">
+        <div class="badge-accent"><i class="fa-solid fa-tractor"></i> Family Owned & Operated</div>
+        <h1>Pure, Farm-Fresh Goods From Our Pasture To Your Table</h1>
+        <p class="hero-lead">Nestled in Texas since 1856, the Rodriguez family brings you the highest quality cage-free
+          eggs and, occasionally, beautiful farm-raised kittens looking for loving homes.</p>
+        <div class="hero-btns">
+          <a href="#eggs" class="btn btn-primary btn-lg"><i class="fa-solid fa-egg"></i> Purchase Fresh Eggs</a>
+          <a href="#kittens" id="hero-btn-kittens" class="btn btn-secondary btn-lg"><i class="fa-solid fa-cat"></i> View
+            Available Kittens</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-wave">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path
+          d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1130.33,109.89,1062.24,113.06,985.66,92.83Z"
+          class="shape-fill"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Quick Info Cards -->
+  <section class="quick-info">
+    <div class="container info-grid">
+      <div class="info-card">
+        <div class="info-icon"><i class="fa-solid fa-feather"></i></div>
+        <h3>100% Cage-Free</h3>
+        <p>Our pasture-raised chickens roam freely, eating a natural diet that yields rich, flavorful yolks.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i class="fa-solid fa-heart"></i></div>
+        <h3>Raised with Love</h3>
+        <p>From day-old chicks to our seasonal litters of farm kittens, every animal receives the highest care.</p>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i class="fa-solid fa-handshake"></i></div>
+        <h3>Local Texas Pick-up</h3>
+        <p>Order online and collect your fresh goods straight from our ranch gates, packed fresh daily.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Eggs Ordering Section -->
+  <section id="eggs" class="eggs-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <img src="assets/ranch_logo_eggs.png" alt="Rodriguez Ranch Eggs Emblem" class="section-logo-stamp">
+        <span class="section-subtitle">Our Main Specialty</span>
+        <h2>Farm-Fresh Nesting Eggs</h2>
+        <p class="section-lead">Hand-gathered every morning. Choose from our fresh-packed cartons, available in dozens
+          or 1.5 dozen boxes. Picked up directly at the ranch for ultimate freshness.</p>
+      </div>
+
+      <div class="eggs-showcase-grid">
+        <!-- Visual Column -->
+        <div class="eggs-image-col">
+          <img src="assets/farm_eggs.png" alt="Fresh eggs in a basket" class="eggs-featured-img">
+          <div class="eggs-overlay-badge">
+            <span class="big-number">100%</span>
+            <span class="badge-text">Organic & Natural</span>
+          </div>
+        </div>
+
+        <!-- Product Ordering Column -->
+        <div class="eggs-order-col">
+          <div class="pricing-card">
+            <h3>Configure Your Order</h3>
+            <p class="card-intro">Select your pack size, choose quantity, and place a reservation for pick-up.</p>
+
+            <!-- Pack Selector -->
+            <div class="pack-selector-label">1. Choose Pack Size</div>
+            <div class="pack-selector-grid">
+              <label class="pack-option active" id="pack-12-label">
+                <input type="radio" name="egg-pack" value="12" checked class="hidden-radio">
+                <div class="pack-content">
+                  <span class="pack-title">12-Pack (Dozen)</span>
+                  <span class="pack-description">Standard Carton</span>
+                  <span class="pack-price" id="price-12-display">$6.00</span>
+                </div>
+                <div class="select-indicator"><i class="fa-solid fa-circle-check"></i></div>
+              </label>
+
+              <label class="pack-option" id="pack-18-label">
+                <input type="radio" name="egg-pack" value="18" class="hidden-radio">
+                <div class="pack-content">
+                  <span class="pack-title">18-Pack (1.5 Dozen)</span>
+                  <span class="pack-description">Family Size Carton</span>
+                  <span class="pack-price" id="price-18-display">$8.50</span>
+                </div>
+                <div class="select-indicator"><i class="fa-solid fa-circle-check"></i></div>
+              </label>
+            </div>
+
+            <!-- Quantity Selector -->
+            <div class="quantity-label">2. Select Quantity</div>
+            <div class="qty-selector">
+              <button class="qty-btn minus" id="egg-qty-minus"><i class="fa-solid fa-minus"></i></button>
+              <input type="number" id="egg-qty-input" value="1" min="1" max="10">
+              <button class="qty-btn plus" id="egg-qty-plus"><i class="fa-solid fa-plus"></i></button>
+            </div>
+
+            <!-- Pricing Summary -->
+            <div class="price-summary-divider"></div>
+            <div class="price-summary-row">
+              <span>Subtotal:</span>
+              <strong id="egg-subtotal">$6.00</strong>
+            </div>
+
+            <button class="btn btn-primary btn-block btn-lg" id="btn-reserve-eggs">
+              <i class="fa-solid fa-basket-shopping"></i> Reserve for Ranch Pick-up
+            </button>
+            <p class="pickup-notice"><i class="fa-solid fa-circle-info"></i> Pickup orders are ready within 24 hours.
+              Pay at the ranch (Cash, Venmo, or Card).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kittens Section (Dynamic display controlled by script & promo status) -->
+  <section id="kittens" class="kittens-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-subtitle">Seasonal Farm Pets</span>
+        <h2>Ranch Kittens</h2>
+        <p class="section-lead" id="kittens-subtitle">Occasionally, our barn cats welcome healthy, playful litters. When
+          we have kittens available, they are listed below with pricing and details.</p>
+      </div>
+
+      <!-- Main Kittens Grid -->
+      <div id="kittens-grid" class="kittens-grid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+
+      <!-- No Kittens Placeholder -->
+      <div id="no-kittens-card" class="no-kittens-card hidden">
+        <div class="no-kittens-icon"><i class="fa-solid fa-cat"></i></div>
+        <h3>No Kittens Available Right Now</h3>
+        <p>Our kittens have all been adopted into happy homes! We do not raise kittens year-round. Check back later or
+          send us a message to join our inquiry list for future litters.</p>
+        <button class="btn btn-outline" id="btn-kitten-waitlist"><i class="fa-solid fa-envelope"></i> Inquire About
+          Future Litters</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about-section">
+    <div class="container about-container">
+      <div class="about-content">
+        <span class="section-subtitle">The Rodriguez Legacy</span>
+        <h2>Over 170 Years of Family Farming</h2>
+        <p class="lead">Established in 1856, Rodriguez Ranch has stood as a cornerstone of local Texan agriculture. What
+          began as a traditional homestead has evolved over generations, remaining true to our values of hard work,
+          animal welfare, and pure, unprocessed country goods.</p>
+        <p>Today, the fifth generation of the Rodriguez family manages our acreage. We keep our flock sizes manageable
+          to ensure every laying hen enjoys open pastures, fresh air, and personal care. This focus on standard-setting
+          animal care reflects in the unparalleled freshness of our eggs and the playful, healthy nature of the kittens
+          born on our land.</p>
+
+        <div class="ranch-features">
+          <div class="feature-item">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Est. 1856 &mdash; Historic Heritage</span>
+          </div>
+          <div class="feature-item">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Non-GMO, Natural Grazing Land</span>
+          </div>
+          <div class="feature-item">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>Local Pickups Only &mdash; Zero Shipping Stresses</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-image-col">
+        <div class="about-collage">
+          <div class="collage-item main-img">
+            <img src="assets/ranch_owners.png" alt="Rodriguez Ranch Owners Couple">
+            <span class="collage-badge"><i class="fa-solid fa-heart"></i> Since 2019</span>
+          </div>
+          <div class="collage-item top-right">
+            <img src="assets/woman_cows.png" alt="Feeding black cattle at Rodriguez Ranch">
+          </div>
+          <div class="collage-item bottom-right">
+            <img src="assets/woman_truck.png" alt="Rodriguez family member on vintage red pickup truck">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact / Location Section -->
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-subtitle">Plan Your Visit</span>
+        <h2>Contact & Pickup Location</h2>
+        <p class="section-lead">Find us just outside town. Please place orders in advance so we can package your eggs
+          fresh and prepare them for your pickup.</p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Contact details -->
+        <div class="contact-details-col">
+          <div class="contact-info-item">
+            <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="contact-text">
+              <h4>Ranch Address</h4>
+              <p>Book a reservation for details<br>Pleasanton, TX 78064</p>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+            <div class="contact-text">
+              <h4>Phone Number</h4>
+              <p><a href="tel:8305550156">(830) 555-0156</a></p>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div class="contact-text">
+              <h4>Email Address</h4>
+              <p><a href="mailto:info@rodriguezranch1856.com">info@rodriguezranch1856.com</a></p>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-icon"><i class="fa-solid fa-clock"></i></div>
+            <div class="contact-text">
+              <h4>Egg Pickup Hours</h4>
+              <p>Daily: 8:00 AM &ndash; 7:00 PM<br><small class="text-muted">*By reservation only</small></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Contact Form -->
+        <div class="contact-form-col">
+          <form id="contact-form" class="card contact-card-form">
+            <h3>Send Us a Message</h3>
+            <div class="form-group">
+              <label for="contact-name">Your Name</label>
+              <input type="text" id="contact-name" required placeholder="John Doe">
+            </div>
+            <div class="form-group">
+              <label for="contact-email">Email Address</label>
+              <input type="email" id="contact-email" required placeholder="john@example.com">
+            </div>
+            <div class="form-group">
+              <label for="contact-msg-type">What are you inquiring about?</label>
+              <select id="contact-msg-type">
+                <option value="general">General Inquiry</option>
+                <option value="eggs">Egg Order Special Details</option>
+                <option value="kittens">Kitten Availability / Waitlist</option>
+                <option value="visit">Visiting the Ranch</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="contact-message">Message</label>
+              <textarea id="contact-message" rows="4" required placeholder="Type your message here..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-brand">
+        <img src="assets/ranch_logo.png" alt="Rodriguez Ranch Small Logo" class="footer-logo">
+        <div>
+          <h3>Rodriguez Ranch</h3>
+          <p class="est-text">Est. 1856 &bull; Pleasanton, Texas</p>
+        </div>
+      </div>
+      <div class="footer-links">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#eggs">Fresh Eggs</a></li>
+          <li><a href="#kittens">Kittens</a></li>
+          <li><a href="#about">Our Story</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-admin">
+        <button id="btn-open-admin-portal" class="admin-login-btn">
+          <i class="fa-solid fa-lock"></i> Ranch Admin Portal
+        </button>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container text-center">
+        <p>&copy; 2026 Rodriguez Ranch. All rights reserved. Handcrafted farm fresh products.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======================================================== -->
+  <!-- MODALS & PORTALS -->
+  <!-- ======================================================== -->
+
+  <!-- Customer Checkout Modal -->
+  <div id="checkout-modal" class="modal-backdrop hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-receipt"></i> Place Your Pickup Order</h3>
+        <button class="modal-close" id="btn-close-checkout"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <form id="checkout-form" class="modal-body">
+        <div class="order-summary-box">
+          <h4>Order Summary</h4>
+          <div id="checkout-items-list">
+            <!-- Populated dynamically -->
+          </div>
+          <div class="summary-total-row">
+            <span>Total to Pay at Pickup:</span>
+            <strong id="checkout-grand-total">$0.00</strong>
+          </div>
+        </div>
+
+        <h4 class="form-section-title">Your Contact Details</h4>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cust-name">Full Name <span class="required">*</span></label>
+            <input type="text" id="cust-name" required placeholder="John Doe">
+          </div>
+          <div class="form-group">
+            <label for="cust-phone">Phone Number <span class="required">*</span></label>
+            <input type="tel" id="cust-phone" required placeholder="(210) 555-0199">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cust-email">Email Address <span class="required">*</span></label>
+          <input type="email" id="cust-email" required placeholder="john.doe@example.com">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="pickup-date">Requested Pickup Date <span class="required">*</span></label>
+            <input type="date" id="pickup-date" required>
+          </div>
+          <div class="form-group">
+            <label for="pickup-time">Estimated Pickup Time</label>
+            <select id="pickup-time">
+              <option value="morning">Morning (8:00 AM - 12:00 PM)</option>
+              <option value="afternoon" selected>Afternoon (12:00 PM - 5:00 PM)</option>
+              <option value="evening">Evening (5:00 PM - 7:00 PM)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="order-notes">Special Instructions or Notes</label>
+          <textarea id="order-notes" rows="2"
+            placeholder="e.g., preference for darker brown egg shells, or question about a kitten..."></textarea>
+        </div>
+
+        <div class="modal-footer-btns">
+          <button type="button" class="btn btn-outline" id="btn-cancel-checkout">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="btn-submit-order">Confirm Reservation</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Order Success Modal -->
+  <div id="success-modal" class="modal-backdrop hidden">
+    <div class="modal-card modal-sm text-center">
+      <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+      <h2>Order Reserved!</h2>
+      <p class="success-msg">Thank you, <strong id="success-cust-name">John</strong>. Your reservation has been logged.
+      </p>
+      <div class="success-details-card">
+        <p><strong>Order ID:</strong> <span id="success-order-id">#RR-1024</span></p>
+        <p><strong>Item(s):</strong> <span id="success-order-summary">12-Pack Eggs x2</span></p>
+        <p><strong>Pickup Date:</strong> <span id="success-pickup-date">07/21/2026</span></p>
+      </div>
+      <p class="success-disclaimer">We have put aside your items. Please be prepared to pay upon pickup at the ranch
+        gate via Cash, Venmo, or Credit Card.</p>
+      <button class="btn btn-primary btn-block" id="btn-close-success">Done</button>
+    </div>
+  </div>
+
+  <!-- Admin Portal Modal -->
+  <div id="admin-modal" class="modal-backdrop hidden">
+    <div class="modal-card modal-xl">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-gauge-high"></i> Rodriguez Ranch Owner's Dashboard</h3>
+        <button class="modal-close" id="btn-close-admin"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <!-- Login Screen -->
+      <div id="admin-login-screen" class="admin-login-screen">
+        <div class="login-box">
+          <div class="login-logo-circle">
+            <img src="assets/ranch_logo.png" alt="Ranch Emblem">
+          </div>
+          <h4>Ranch Owner Authorization</h4>
+          <p>Please enter the dashboard passkey to manage listings, update egg pricing, and view customer order
+            reservations.</p>
+          <form id="admin-login-form">
+            <div class="form-group">
+              <label for="admin-password">Passkey</label>
+              <input type="password" id="admin-password" placeholder="Enter password (default: ranch1856)" required>
+              <div id="login-error-msg" class="login-error hidden">Incorrect password. Please try again.</div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Unlock Dashboard</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Dashboard Screen (After login) -->
+      <div id="admin-dashboard-screen" class="admin-dashboard-screen hidden">
+        <div class="admin-sidebar">
+          <div class="admin-profile">
+            <i class="fa-solid fa-user-gear"></i>
+            <div>
+              <strong>Ranch Manager</strong>
+              <span>Online</span>
+            </div>
+          </div>
+
+          <!-- Sidebar Navigation Tabs -->
+          <ul class="admin-nav-tabs">
+            <li class="admin-tab-item active" data-tab="tab-orders">
+              <i class="fa-solid fa-clipboard-list"></i> Customer Orders
+              <span class="badge badge-danger hidden" id="pending-orders-badge">0</span>
+            </li>
+            <li class="admin-tab-item" data-tab="tab-kittens">
+              <i class="fa-solid fa-cat"></i> Manage Kittens
+            </li>
+            <li class="admin-tab-item" data-tab="tab-settings">
+              <i class="fa-solid fa-sliders"></i> Site Settings
+            </li>
+          </ul>
+
+          <button id="btn-admin-logout" class="btn btn-outline btn-block btn-sm btn-logout">
+            <i class="fa-solid fa-right-from-bracket"></i> Lock Dashboard
+          </button>
+        </div>
+
+        <div class="admin-content-area">
+
+          <!-- TAB: ORDERS -->
+          <div id="tab-orders" class="admin-tab-panel active">
+            <div class="panel-header">
+              <h2>Customer Order Reservations</h2>
+              <p>Review egg orders and kitten inquiries submitted by customers.</p>
+            </div>
+            <div class="table-responsive">
+              <table class="admin-table" id="orders-table">
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Customer Name</th>
+                    <th>Contact Info</th>
+                    <th>Reserved Items</th>
+                    <th>Pickup Schedule</th>
+                    <th>Total Due</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="orders-table-body">
+                  <!-- Rendered dynamically -->
+                </tbody>
+              </table>
+              <div id="no-orders-msg" class="empty-table-state hidden">
+                <i class="fa-solid fa-receipt"></i>
+                <p>No orders logged in the database yet.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB: KITTENS MANAGEMENT -->
+          <div id="tab-kittens" class="admin-tab-panel">
+            <div class="panel-header flex-header">
+              <div>
+                <h2>Manage Ranch Kittens</h2>
+                <p>List new kittens, set prices, edit details, or mark them as sold.</p>
+              </div>
+              <button class="btn btn-primary" id="btn-show-add-kitten-form">
+                <i class="fa-solid fa-plus"></i> Add New Kitten
+              </button>
+            </div>
+
+            <!-- Add/Edit Kitten Form Pane (Collapsible) -->
+            <div id="kitten-form-container" class="card admin-form-card hidden">
+              <h3 id="kitten-form-title">Add New Kitten for Sale</h3>
+              <form id="kitten-form">
+                <!-- ID Holder for edits -->
+                <input type="hidden" id="edit-kitten-id" value="">
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="kit-name">Kitten Name <span class="required">*</span></label>
+                    <input type="text" id="kit-name" required placeholder="e.g., Barnaby">
+                  </div>
+                  <div class="form-group">
+                    <label for="kit-price">Adoption Fee ($) <span class="required">*</span></label>
+                    <input type="number" id="kit-price" required min="0" step="1" placeholder="e.g., 150">
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="kit-breed">Breed/Description <span class="required">*</span></label>
+                    <input type="text" id="kit-breed" required placeholder="e.g., Domestic Short Hair (Orange Tabby)">
+                  </div>
+                  <div class="form-group">
+                    <label for="kit-age">Age Details <span class="required">*</span></label>
+                    <input type="text" id="kit-age" required placeholder="e.g., 8 Weeks Old">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="kit-description">Kitten Personality & Details</label>
+                  <textarea id="kit-description" rows="3"
+                    placeholder="e.g., Extremely playful, loves paper balls, litterbox trained..."></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label>Kitten Photograph <span class="required">*</span></label>
+                  <div class="image-upload-wrapper">
+                    <!-- File upload option -->
+                    <div class="upload-box">
+                      <input type="file" id="kit-image-file" accept="image/*" class="hidden-file-input">
+                      <div class="upload-trigger" id="file-upload-trigger">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>Upload Photo File</span>
+                        <small>PNG or JPG format</small>
+                      </div>
+                    </div>
+
+                    <span class="upload-or">OR</span>
+
+                    <!-- Presets selection -->
+                    <div class="presets-box">
+                      <span>Choose From Ranch Presets:</span>
+                      <div class="preset-images-list">
+                        <label class="preset-img-option">
+                          <input type="radio" name="kit-preset-img" value="assets/kitten_1.png" checked>
+                          <img src="assets/kitten_1.png" alt="Orange Tabby Preset">
+                          <span class="preset-badge">Orange Tabby</span>
+                        </label>
+                        <label class="preset-img-option">
+                          <input type="radio" name="kit-preset-img" value="assets/kitten_2.png">
+                          <img src="assets/kitten_2.png" alt="Grey Preset">
+                          <span class="preset-badge">Grey & White</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Preview -->
+                  <div class="image-preview-container">
+                    <span>Selected Photo Preview:</span>
+                    <img id="kit-image-preview" src="assets/kitten_1.png" alt="Preview Image">
+                  </div>
+                </div>
+
+                <div class="form-actions">
+                  <button type="button" class="btn btn-outline" id="btn-cancel-kitten">Cancel</button>
+                  <button type="submit" class="btn btn-primary" id="btn-save-kitten">Save Kitten Listing</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Current Kittens List -->
+            <div class="admin-kitten-grid" id="admin-kitten-list-grid">
+              <!-- Rendered dynamically by app.js -->
+            </div>
+          </div>
+
+          <!-- TAB: SITE SETTINGS -->
+          <div id="tab-settings" class="admin-tab-panel">
+            <div class="panel-header">
+              <h2>Ranch Site Settings</h2>
+              <p>Configure general website settings, toggle seasonal promotions, and edit prices.</p>
+            </div>
+
+            <div class="settings-grid">
+              <!-- Promotion Settings -->
+              <div class="card settings-card">
+                <h3><i class="fa-solid fa-bullhorn"></i> Kitten Promotion Settings</h3>
+                <p>Toggle whether kittens are currently promoted on the landing page header and ribbon.</p>
+
+                <div class="toggle-control-row">
+                  <div class="toggle-text">
+                    <strong>Promote Kitten Litters on Landing Page</strong>
+                    <span>Enables the top announcement ribbon, shows the "Kittens" link in the navbar, and showcases the
+                      Kittens section.</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="settings-promote-kittens">
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Egg Pricing Settings -->
+              <div class="card settings-card">
+                <h3><i class="fa-solid fa-tag"></i> Fresh Egg Pricing</h3>
+                <p>Adjust the sales price for the cartons of fresh eggs. The website pricing and totals will update
+                  immediately.</p>
+
+                <div class="pricing-settings-form">
+                  <div class="form-group">
+                    <label for="settings-price-12">12-Pack (Dozen) Price ($)</label>
+                    <div class="price-input-group">
+                      <span class="input-currency">$</span>
+                      <input type="number" id="settings-price-12" step="0.01" min="0.00" value="6.00">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="settings-price-18">18-Pack (1.5 Dozen) Price ($)</label>
+                    <div class="price-input-group">
+                      <span class="input-currency">$</span>
+                      <input type="number" id="settings-price-18" step="0.01" min="0.00" value="8.50">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pickup Times Settings -->
+              <div class="card settings-card">
+                <h3><i class="fa-solid fa-clock"></i> Weekly Pickup Hours</h3>
+                <p>Set your daily business hours. The checkout form will automatically generate 30-minute pickup slots for customers within this window.</p>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="settings-open-time">Opening Time</label>
+                    <input type="time" id="settings-open-time" value="09:00">
+                  </div>
+                  <div class="form-group">
+                    <label for="settings-close-time">Closing Time</label>
+                    <input type="time" id="settings-close-time" value="17:00">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Blackout Dates Settings -->
+              <div class="card settings-card">
+                <h3><i class="fa-solid fa-calendar-xmark"></i> Blackout Dates & Times</h3>
+                <p>Block specific days or times so customers cannot select them for pickup.</p>
+                
+                <div class="blackout-controls">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="block-date-input">Select Date</label>
+                      <input type="date" id="block-date-input">
+                    </div>
+                    <div class="form-group">
+                      <label for="block-type-select">What to Block?</label>
+                      <select id="block-type-select">
+                        <option value="all">Block Entire Day</option>
+                        <option value="specific">Block Specific Time</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-row hidden" id="block-time-row">
+                    <div class="form-group">
+                      <label for="block-time-select">Select Time to Block</label>
+                      <select id="block-time-select">
+                        <!-- Populated dynamically via app.js -->
+                      </select>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-outline" id="btn-add-block-rule" style="margin-top: 8px;">
+                    <i class="fa-solid fa-plus"></i> Add Block Rule
+                  </button>
+                </div>
+
+                <!-- Active Rules List -->
+                <div class="blocked-rules-container">
+                  <h4>Active Block Rules</h4>
+                  <ul id="blocked-rules-list" class="blocked-list">
+                    <!-- Populated dynamically via app.js -->
+                  </ul>
+                  <p id="no-blocked-msg" class="text-muted" style="font-size: 0.85rem; margin-top: 8px;">No blackout dates configured.</p>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="settings-save-footer">
+              <button class="btn btn-primary" id="btn-save-settings">
+                <i class="fa-solid fa-floppy-disk"></i> Save Settings Configuration
+              </button>
+              <span id="settings-save-feedback" class="save-feedback hidden"><i class="fa-solid fa-circle-check"></i>
+                Settings saved successfully!</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Customer Auth Modal -->
+  <div id="auth-modal" class="modal-backdrop hidden">
+    <div class="modal-card modal-sm">
+      <div class="modal-header">
+        <div class="auth-tab-bar">
+          <button id="tab-login" class="auth-tab auth-tab-active">Sign In</button>
+          <button id="tab-signup" class="auth-tab">Create Account</button>
+        </div>
+        <button class="modal-close" id="btn-close-auth"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <!-- Login Pane -->
+      <div id="auth-login-pane" class="modal-body">
+        <div class="auth-logo">
+          <img src="assets/ranch_logo.png" alt="Ranch Logo">
+          <h3>Welcome Back</h3>
+          <p>Sign in to view your orders and place reservations.</p>
+        </div>
+        <form id="login-form">
+          <button type="button" class="btn btn-outline btn-block google-auth-btn" id="btn-google-signin">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="width:18px; margin-right:8px; vertical-align:middle;">
+            Sign in with Google
+          </button>
+          <div class="auth-divider"><span>or continue with email</span></div>
+          
+          <div class="form-group">
+            <label for="login-email">Email Address</label>
+            <input type="email" id="login-email" required placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required placeholder="Your password">
+          </div>
+          <div id="auth-login-error" class="auth-error hidden"></div>
+          <button type="submit" id="btn-login-submit" class="btn btn-primary btn-block">Sign In</button>
+        </form>
+        <p class="auth-switch-link">Don't have an account? <a href="#" id="link-to-signup">Create one &rarr;</a></p>
+      </div>
+
+      <!-- Signup Pane -->
+      <div id="auth-signup-pane" class="modal-body hidden">
+        <div class="auth-logo">
+          <img src="assets/ranch_logo.png" alt="Ranch Logo">
+          <h3>Create Your Account</h3>
+          <p>Join to easily track your egg orders and inquire about kittens.</p>
+        </div>
+        <form id="signup-form">
+          <button type="button" class="btn btn-outline btn-block google-auth-btn" id="btn-google-signup">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" style="width:18px; margin-right:8px; vertical-align:middle;">
+            Sign up with Google
+          </button>
+          <div class="auth-divider"><span>or sign up with email</span></div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="signup-name">Full Name <span class="required">*</span></label>
+              <input type="text" id="signup-name" required placeholder="Jane Doe">
+            </div>
+            <div class="form-group">
+              <label for="signup-phone">Phone Number</label>
+              <input type="tel" id="signup-phone" placeholder="(210) 555-0100">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="signup-email">Email Address <span class="required">*</span></label>
+            <input type="email" id="signup-email" required placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label for="signup-password">Password <span class="required">*</span></label>
+            <input type="password" id="signup-password" required placeholder="Min 6 characters">
+          </div>
+          <div id="auth-signup-error" class="auth-error hidden"></div>
+          <button type="submit" id="btn-signup-submit" class="btn btn-primary btn-block">Create Account</button>
+        </form>
+        <p class="auth-switch-link">Already have an account? <a href="#" id="link-to-login">&larr; Sign in</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Customer Dashboard Modal -->
+  <div id="customer-dashboard-modal" class="modal-backdrop hidden">
+    <div class="modal-card modal-customer-dash">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-circle-user"></i> My Account</h3>
+        <button class="modal-close" id="btn-close-customer-dash"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="customer-dash-profile">
+          <div class="customer-avatar"><i class="fa-solid fa-user"></i></div>
+          <div>
+            <h4 id="dash-cust-name">Loading...</h4>
+            <p id="dash-cust-email" class="text-muted"></p>
+          </div>
+          <button id="btn-signout-customer" class="btn btn-outline btn-sm" style="margin-left:auto">
+            <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+          </button>
+        </div>
+
+        <div class="my-orders-section">
+          <h4 class="my-orders-title"><i class="fa-solid fa-receipt"></i> My Order History</h4>
+          <div id="my-orders-list">
+            <div class="empty-orders-state">
+              <i class="fa-solid fa-spinner fa-spin"></i>
+              <p>Loading your orders...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Scripts (ES Module) -->
+  <script type="module" src="app.js"></script>
+</body>
+
+</html>

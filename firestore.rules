@@ -1,0 +1,45 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper: is the current user the ranch admin?
+    function isAdmin() {
+      return request.auth != null && request.auth.token.email == "morganmv145@gmail.com";
+    }
+
+    // ── Settings ─────────────────────────────────────────────
+    // Anyone can read. Only the admin can write.
+    match /settings/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ── Kittens ───────────────────────────────────────────────
+    // Anyone can read. Only the admin can create/edit/delete.
+    match /kittens/{kittenId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ── Orders ────────────────────────────────────────────────
+    // Any signed-in user can create an order.
+    // A user can only read their own orders.
+    // Only the admin can read ALL orders and update/delete any order.
+    match /orders/{orderId} {
+      allow create: if request.auth != null;
+      allow read:   if request.auth != null &&
+                       (resource.data.userId == request.auth.uid || isAdmin());
+      allow update,
+            delete: if isAdmin();
+    }
+
+    // ── User Profiles ─────────────────────────────────────────
+    // A signed-in user can read and write ONLY their own profile.
+    // The admin can read any profile.
+    match /users/{userId} {
+      allow read:  if request.auth != null &&
+                      (request.auth.uid == userId || isAdmin());
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
