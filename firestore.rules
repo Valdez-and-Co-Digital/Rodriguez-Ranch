@@ -41,5 +41,11 @@ service cloud.firestore {
                       (request.auth.uid == userId || isAdmin());
       allow write: if request.auth != null && request.auth.uid == userId;
     }
+
+    // ── Mail ──────────────────────────────────────────────────
+    // Any signed-in user can write to the mail collection to send notifications.
+    match /mail/{mailId} {
+      allow create: if request.auth != null;
+    }
   }
 }

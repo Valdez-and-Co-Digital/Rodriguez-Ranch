@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Custom Stylesheets -->
-  <link rel="stylesheet" href="styles.css?v=1.0.2">
+  <link rel="stylesheet" href="styles.css?v=1.0.3">
 </head>
 
 <body>
@@ -451,6 +451,7 @@
         <p><strong>Order ID:</strong> <span id="success-order-id">#RR-1024</span></p>
         <p><strong>Item(s):</strong> <span id="success-order-summary">12-Pack Eggs x2</span></p>
         <p><strong>Pickup Date:</strong> <span id="success-pickup-date">07/21/2026</span></p>
+        <p><strong>Pickup Address:</strong> <span id="success-pickup-address" style="color:var(--color-secondary);font-weight:600;">Castroville, TX 78009</span></p>
       </div>
       <p class="success-disclaimer">We have put aside your items. Please be prepared to pay upon pickup at the ranch
         gate via Cash, Venmo, or Credit Card.</p>
@@ -714,6 +715,10 @@
                     <input type="time" id="settings-close-time" value="17:00">
                   </div>
                 </div>
+                <div class="form-group" style="margin-top: 12px;">
+                  <label for="settings-pickup-address">Pickup Address (Private - Only sent in confirmation emails)</label>
+                  <textarea id="settings-pickup-address" rows="2" placeholder="e.g. 123 Ranch Road, Castroville, TX 78009"></textarea>
+                </div>
               </div>
 
               <!-- Blackout Dates Settings -->
@@ -886,7 +891,7 @@
   </div>
 
   <!-- Custom Scripts (ES Module) -->
-  <script type="module" src="app.js?v=1.0.2"></script>
+  <script type="module" src="app.js?v=1.0.3"></script>
 </body>
 
 </html>
