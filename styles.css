@@ -1004,7 +1004,8 @@
   
   .feature-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    text-align: left;
     gap: 12px;
     font-family: var(--font-subheading);
     font-weight: 600;
@@ -1014,6 +1015,8 @@
   
   .feature-item i {
     color: var(--color-accent);
+    flex-shrink: 0;
+    margin-top: 4px;
   }
   
   .about-image-col {
