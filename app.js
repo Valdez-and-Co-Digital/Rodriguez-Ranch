@@ -479,6 +479,74 @@ async function handleCheckoutSubmit(e) {
     }
 
     const address = state.settings.pickupAddress || DEFAULTS.pickupAddress;
+    const orderIdShort = docRef.id.substring(0, 8).toUpperCase();
+    
+    // --- SEND TRIGGER EMAIL (VIA FIREBASE EXTENSION) ---
+    try {
+      const emailHtml = `
+      <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+        <div style="background-color: #1C1917; color: #fff; padding: 24px; text-align: center;">
+          <h1 style="margin: 0; font-size: 26px; font-weight: normal; font-family: Georgia, serif;">Rodriguez Ranch</h1>
+          <p style="margin: 5px 0 0 0; font-size: 14px; color: #D97706; text-transform: uppercase; letter-spacing: 1px;">Order Reservation Confirmed</p>
+        </div>
+        <div style="padding: 24px; background-color: #fff;">
+          <p>Hello <strong>${custName}</strong>,</p>
+          <p>Thank you for reserving with Rodriguez Ranch! We have received your order details and are preparing it for your chosen pickup slot.</p>
+          <hr style="border: 0; border-top: 1px solid #eee; margin: 24px 0;">
+          <h3 style="color: #1C1917; margin-top: 0; font-family: Georgia, serif;">Order Summary</h3>
+          <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+            <tr>
+              <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold; color: #555;">Order ID:</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #eee; text-align: right;">#${orderIdShort}</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold; color: #555;">Items Reserved:</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #eee; text-align: right;">${state.currentCart.summary}</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold; color: #555;">Total Due:</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #eee; text-align: right; font-weight: bold; color: #15803D; font-size: 16px;">$${state.currentCart.total.toFixed(2)}</td>
+            </tr>
+          </table>
+          <p style="font-size: 13px; color: #666; margin-bottom: 24px;">Please prepare payment via Cash, Venmo, or Credit Card at pickup.</p>
+          <hr style="border: 0; border-top: 1px solid #eee; margin: 24px 0;">
+          <h3 style="color: #1C1917; margin-top: 0; font-family: Georgia, serif;">Pickup Details & Instructions</h3>
+          <p style="margin: 6px 0;">📅 <strong>Date:</strong> ${formatDate(pickupDate)}</p>
+          <p style="margin: 6px 0;">🕒 <strong>Time Slot:</strong> ${pickupTimeText}</p>
+          <p style="margin: 6px 0;">📍 <strong>Pickup Location:</strong></p>
+          <div style="background-color: #FAF7F2; padding: 15px; border-radius: 6px; border: 1px solid #E7E1D5; color: #292524; font-family: monospace; font-size: 14px; margin-bottom: 16px; white-space: pre-line;">${address}</div>
+          <p style="background-color: #FFFBEB; padding: 15px; border-left: 4px solid #D97706; border-radius: 4px; font-size: 13px; color: #78350F; line-height: 1.5; margin-top: 15px;">
+            <strong>Please Note:</strong> Since our ranch is also our private family home, we ask that you pick up your order during your scheduled window. If you need to make changes or have any questions, feel free to contact us by replying to this email or at <strong>morganmv145@gmail.com</strong>.
+          </p>
+        </div>
+        <div style="background-color: #1C1917; color: #A8A29E; padding: 16px; text-align: center; font-size: 12px; border-top: 1px solid #eee;">
+          &copy; Rodriguez Ranch. Established 1856.
+        </div>
+      </div>`;
+
+      // Customer Email
+      await writeWithTimeout(addDoc(collection(db, "mail"), {
+        to: custEmail,
+        message: {
+          subject: `Order Confirmation #${orderIdShort} - Rodriguez Ranch`,
+          html: emailHtml
+        }
+      }));
+
+      // Admin Alert Email
+      await writeWithTimeout(addDoc(collection(db, "mail"), {
+        to: "jackandmorgan2419@gmail.com",
+        message: {
+          subject: `🚨 New Order Received! #${orderIdShort}`,
+          html: `<p>A new order for ${state.currentCart.summary} ($${state.currentCart.total.toFixed(2)}) has been placed by ${custName}.</p>
+                 <p>Pickup: ${formatDate(pickupDate)} at ${pickupTimeText}</p>
+                 <p><a href="https://rodriguezranch.netlify.app">Log into your dashboard</a> to manage this order.</p>`
+        }
+      }));
+    } catch (emailErr) {
+      console.error("Failed to enqueue emails:", emailErr);
+    }
+    // ----------------------------------------------------
 
     document.getElementById('checkout-modal').classList.add('hidden');
     document.getElementById('success-cust-name').textContent = custName.split(' ')[0];
@@ -630,6 +698,32 @@ function renderAdminOrdersTable() {
 async function rejectOrder(orderId) {
   try {
     await writeWithTimeout(updateDoc(doc(db, "orders", orderId), { status: 'Rejected' }), 5000);
+    
+    // --- SEND CANCELLATION EMAIL (VIA FIREBASE EXTENSION) ---
+    const order = state.orders.find(o => o.id === orderId);
+    if (order && order.custEmail) {
+      try {
+        await writeWithTimeout(addDoc(collection(db, "mail"), {
+          to: order.custEmail,
+          message: {
+            subject: `Order Cancelled #${orderId.substring(0,8).toUpperCase()} - Rodriguez Ranch`,
+            html: `
+              <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto;">
+                <h2 style="color: #DC2626;">Order Cancelled</h2>
+                <p>Hello ${order.custName || 'Valued Customer'},</p>
+                <p>Unfortunately, we had to cancel your order <strong>#${orderId.substring(0,8).toUpperCase()}</strong> for ${order.items || 'your items'}.</p>
+                <p>If you have any questions or believe this was a mistake, please contact us at <strong>morganmv145@gmail.com</strong>.</p>
+                <p>Thank you,<br>Rodriguez Ranch</p>
+              </div>
+            `
+          }
+        }));
+      } catch (emailErr) {
+        console.error("Failed to enqueue cancellation email:", emailErr);
+      }
+    }
+    // --------------------------------------------------------
+
     showToast("Order rejected successfully.");
   } catch (err) {
     showToast("❌ Connection error: Could not reject order.");
