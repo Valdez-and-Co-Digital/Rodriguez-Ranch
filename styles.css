@@ -2730,21 +2730,6 @@
   font-weight: 600;
 }
 
-/* Secondary button (for logged-in customer) */
-.btn-secondary {
-  background-color: var(--color-accent);
-  color: #FFFFFF;
-  border-color: var(--color-accent);
-}
-
-.btn-secondary:hover {
-  background-color: var(--color-accent-light);
-  color: #FFFFFF;
-  border-color: var(--color-accent-light);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(22, 163, 74, 0.25);
-}
-
 /* ==========================================================================
    CUSTOMER DASHBOARD MODAL
    ========================================================================== */
