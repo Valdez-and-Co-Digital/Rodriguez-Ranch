@@ -403,11 +403,6 @@ function updateEggSubtotal() {
 }
 
 function openEggCheckout() {
-  if (!state.currentUser) {
-    showToast('Please sign in to place an order!');
-    openAuthModal('login');
-    return;
-  }
   const selected = document.querySelector('input[name="egg-pack"]:checked');
   const packSize = selected ? selected.value : "12";
   const qty = parseInt(document.getElementById('egg-qty-input').value, 10) || 1;
@@ -423,11 +418,6 @@ function openEggCheckout() {
 }
 
 function openKittenInquiry(kittenId) {
-  if (!state.currentUser) {
-    showToast('Please sign in to inquire about a kitten!');
-    openAuthModal('login');
-    return;
-  }
   const kitten = state.kittens.find(k => k.id === kittenId);
   if (!kitten || kitten.status?.toLowerCase() === 'sold') return;
   state.currentCart = {
@@ -461,7 +451,7 @@ function renderCheckoutSummary() {
 
 async function handleCheckoutSubmit(e) {
   e.preventDefault();
-  if (!state.currentCart || !state.currentUser) return;
+  if (!state.currentCart) return;
   const btn = document.getElementById('btn-submit-order');
   btn.disabled = true; btn.textContent = 'Saving...';
   const custName = document.getElementById('cust-name').value;
@@ -472,8 +462,9 @@ async function handleCheckoutSubmit(e) {
   const pickupTimeText = pickupTimeEl.options[pickupTimeEl.selectedIndex].text;
   const orderNotes = document.getElementById('order-notes').value;
   try {
+    const userId = state.currentUser ? state.currentUser.uid : 'guest';
     const docRef = await writeWithTimeout(addDoc(collection(db, "orders"), {
-      userId: state.currentUser.uid, custName, custPhone, custEmail,
+      userId, custName, custPhone, custEmail,
       items: state.currentCart.summary, total: state.currentCart.total,
       pickupDate, pickupTime: pickupTimeText, notes: orderNotes,
       status: 'Pending', timestamp: serverTimestamp()
@@ -483,69 +474,11 @@ async function handleCheckoutSubmit(e) {
       await writeWithTimeout(updateDoc(doc(db, "kittens", state.currentCart.kittenId), { status: 'Sold' }));
     }
     
-    await saveUserProfile(state.currentUser.uid, { name: custName, phone: custPhone, email: custEmail });
-
-    // Send confirmation email via Firebase Trigger Email extension
-    const address = state.settings.pickupAddress || DEFAULTS.pickupAddress;
-    try {
-      await writeWithTimeout(addDoc(collection(db, "mail"), {
-        to: [custEmail],
-        message: {
-          subject: `Order Confirmation #${docRef.id.substring(0, 8).toUpperCase()} - Rodriguez Ranch`,
-          text: `Hello ${custName},\n\nThank you for reserving with Rodriguez Ranch! Order #${docRef.id.substring(0, 8).toUpperCase()} for ${state.currentCart.summary} ($${state.currentCart.total.toFixed(2)}) is confirmed for pickup on ${formatDate(pickupDate)} during time slot: ${pickupTimeText}.\n\nPickup Location:\n${address}\n\nThank you!\nRodriguez Ranch`,
-          html: `
-            <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
-              <div style="background-color: #1C1917; color: #fff; padding: 24px; text-align: center;">
-                <h1 style="margin: 0; font-size: 26px; font-weight: normal; font-family: Georgia, serif;">Rodriguez Ranch</h1>
-                <p style="margin: 5px 0 0 0; font-size: 14px; color: #D97706; text-transform: uppercase; letter-spacing: 1px;">Order Reservation Confirmed</p>
-              </div>
-              <div style="padding: 24px; background-color: #fff;">
-                <p>Hello <strong>${custName}</strong>,</p>
-                <p>Thank you for reserving with Rodriguez Ranch! We have received your order details and are preparing it for your chosen pickup slot.</p>
-                
-                <hr style="border: 0; border-top: 1px solid #eee; margin: 24px 0;">
-                
-                <h3 style="color: #1C1917; margin-top: 0; font-family: Georgia, serif;">Order Summary</h3>
-                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-                  <tr>
-                    <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold; color: #555;">Order ID:</td>
-                    <td style="padding: 10px 0; border-bottom: 1px solid #eee; text-align: right;">#${docRef.id.substring(0, 8).toUpperCase()}</td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold; color: #555;">Items Reserved:</td>
-                    <td style="padding: 10px 0; border-bottom: 1px solid #eee; text-align: right;">${state.currentCart.summary}</td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold; color: #555;">Total Due:</td>
-                    <td style="padding: 10px 0; border-bottom: 1px solid #eee; text-align: right; font-weight: bold; color: #15803D; font-size: 16px;">$${state.currentCart.total.toFixed(2)}</td>
-                  </tr>
-                </table>
-                <p style="font-size: 13px; color: #666; margin-bottom: 24px;">Please prepare payment via Cash, Venmo, or Credit Card at pickup.</p>
-
-                <hr style="border: 0; border-top: 1px solid #eee; margin: 24px 0;">
-
-                <h3 style="color: #1C1917; margin-top: 0; font-family: Georgia, serif;">Pickup Details & Instructions</h3>
-                <p style="margin: 6px 0;">📅 <strong>Date:</strong> ${formatDate(pickupDate)}</p>
-                <p style="margin: 6px 0;">🕒 <strong>Time Slot:</strong> ${pickupTimeText}</p>
-                <p style="margin: 6px 0;">📍 <strong>Pickup Location:</strong></p>
-                <div style="background-color: #FAF7F2; padding: 15px; border-radius: 6px; border: 1px solid #E7E1D5; color: #292524; font-family: monospace; font-size: 14px; margin-bottom: 16px; white-space: pre-line;">
-                  ${address}
-                </div>
-                
-                <p style="background-color: #FFFBEB; padding: 15px; border-left: 4px solid #D97706; border-radius: 4px; font-size: 13px; color: #78350F; line-height: 1.5; margin-top: 15px;">
-                  <strong>Please Note:</strong> Since our ranch is also our private family home, we ask that you pick up your order during your scheduled window. If you need to make changes or have any questions, feel free to contact us by replying to this email or at <strong>morganmv145@gmail.com</strong>.
-                </p>
-              </div>
-              <div style="background-color: #1C1917; color: #A8A29E; padding: 16px; text-align: center; font-size: 12px; border-top: 1px solid #eee;">
-                &copy; Rodriguez Ranch. Established 1856.
-              </div>
-            </div>
-          `
-        }
-      }));
-    } catch (mailErr) {
-      console.error("Failed to generate order confirmation email:", mailErr);
+    if (state.currentUser) {
+      await saveUserProfile(state.currentUser.uid, { name: custName, phone: custPhone, email: custEmail });
     }
+
+    const address = state.settings.pickupAddress || DEFAULTS.pickupAddress;
 
     document.getElementById('checkout-modal').classList.add('hidden');
     document.getElementById('success-cust-name').textContent = custName.split(' ')[0];
@@ -642,7 +575,9 @@ function renderAdminOrdersTable() {
   if (state.orders.length === 0) { noMsg?.classList.remove('hidden'); return; }
   noMsg?.classList.add('hidden');
   state.orders.forEach(order => {
-    const statusClass = order.status?.toLowerCase() === 'pending' ? 'pending' : 'completed';
+    let statusClass = 'pending';
+    if (order.status?.toLowerCase() === 'completed') statusClass = 'completed';
+    if (order.status?.toLowerCase() === 'rejected') statusClass = 'rejected';
     const row = document.createElement('tr');
     row.innerHTML = `
       <td data-label="Order ID"><strong>${order.id.substring(0, 8).toUpperCase()}</strong></td>
@@ -658,6 +593,9 @@ function renderAdminOrdersTable() {
       <td data-label="Actions"><div class="action-btn-group">
         <button class="action-btn btn-toggle-order" data-id="${order.id}" title="Toggle Status">
           <i class="fa-solid ${order.status === 'Pending' ? 'fa-check' : 'fa-rotate-left'}"></i>
+        </button>
+        <button class="action-btn btn-reject-order" data-id="${order.id}" title="Reject Order" style="color: #D97706;">
+          <i class="fa-solid fa-xmark"></i>
         </button>
         <button class="action-btn delete btn-delete-order" data-id="${order.id}" title="Delete">
           <i class="fa-solid fa-trash"></i>
@@ -675,12 +613,27 @@ function renderAdminOrdersTable() {
   document.querySelectorAll('.btn-toggle-order').forEach(btn => {
     btn.addEventListener('click', (e) => toggleOrderStatus(e.currentTarget.getAttribute('data-id')));
   });
+  document.querySelectorAll('.btn-reject-order').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const id = e.currentTarget.getAttribute('data-id');
+      if (confirm(`Reject this order? This will send a cancellation email to the customer.`)) rejectOrder(id);
+    });
+  });
   document.querySelectorAll('.btn-delete-order').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const id = e.currentTarget.getAttribute('data-id');
       if (confirm(`Delete order?`)) deleteOrder(id);
     });
   });
+}
+
+async function rejectOrder(orderId) {
+  try {
+    await writeWithTimeout(updateDoc(doc(db, "orders", orderId), { status: 'Rejected' }), 5000);
+    showToast("Order rejected successfully.");
+  } catch (err) {
+    showToast("❌ Connection error: Could not reject order.");
+  }
 }
 
 async function toggleOrderStatus(orderId) {
