@@ -489,9 +489,10 @@ async function handleCheckoutSubmit(e) {
     const address = state.settings.pickupAddress || DEFAULTS.pickupAddress;
     try {
       await writeWithTimeout(addDoc(collection(db, "mail"), {
-        to: custEmail,
+        to: [custEmail],
         message: {
           subject: `Order Confirmation #${docRef.id.substring(0, 8).toUpperCase()} - Rodriguez Ranch`,
+          text: `Hello ${custName},\n\nThank you for reserving with Rodriguez Ranch! Order #${docRef.id.substring(0, 8).toUpperCase()} for ${state.currentCart.summary} ($${state.currentCart.total.toFixed(2)}) is confirmed for pickup on ${formatDate(pickupDate)} during time slot: ${pickupTimeText}.\n\nPickup Location:\n${address}\n\nThank you!\nRodriguez Ranch`,
           html: `
             <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
               <div style="background-color: #1C1917; color: #fff; padding: 24px; text-align: center;">
