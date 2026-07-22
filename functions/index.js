@@ -74,7 +74,7 @@ exports.onOrderCreated = onDocumentCreated({
     try {
       await resend.emails.send({
         from: "Rodriguez Ranch <onboarding@resend.dev>",
-        to: ["jackandmorgan2419@gmail.com"],
+        to: ["morganmv145@gmail.com"],
         subject: `🚨 New Order Received! #${orderId}`,
         html: `<p>A new order for ${order.items || 'items'} ($${order.total || 0}) has been placed by ${order.custName || 'a customer'}.</p>
                <p>Pickup: ${order.pickupDate} at ${order.pickupTime}</p>
@@ -98,7 +98,7 @@ exports.onOrderUpdated = onDocumentUpdated({
 
   const before = change.before.data();
   const after = change.after.data();
-  
+
   // Only trigger if status changed to 'Rejected'
   if (after.status === 'Rejected' && before.status !== 'Rejected') {
     const orderId = event.params.orderId.substring(0, 8).toUpperCase();
@@ -116,7 +116,7 @@ exports.onOrderUpdated = onDocumentUpdated({
             <h2 style="color: #DC2626;">Order Cancelled</h2>
             <p>Hello ${after.custName || 'Valued Customer'},</p>
             <p>Unfortunately, we had to cancel your order <strong>#${orderId}</strong> for ${after.items || 'your items'}.</p>
-            <p>If you have any questions or believe this was a mistake, please contact us at <strong>jackandmorgan2419@gmail.com</strong>.</p>
+            <p>If you have any questions or believe this was a mistake, please contact us at <strong>morganmv145@gmail.com</strong>.</p>
             <p>Thank you,<br>Rodriguez Ranch</p>
           </div>
         `
