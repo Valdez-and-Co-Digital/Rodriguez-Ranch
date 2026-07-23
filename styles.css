@@ -424,6 +424,16 @@
     color: #FFFFFF;
   }
   
+  .hero-bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+  
   .hero-bg {
     position: absolute;
     top: 0;
@@ -583,6 +593,12 @@
     align-items: center;
   }
   
+  .eggs-visuals {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
   .eggs-image-col {
     position: relative;
     border-radius: var(--border-radius-lg);
@@ -615,6 +631,26 @@
     align-items: center;
     gap: 16px;
     border: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .eggs-mini-gallery {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .eggs-mini-gallery img {
+    flex: 1;
+    height: 160px;
+    object-fit: cover;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+    border: 4px solid #FFFFFF;
+    transition: var(--transition-smooth);
+  }
+  
+  .eggs-mini-gallery img:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-md);
   }
   
   .big-number {
@@ -1048,7 +1084,7 @@
     background-color: var(--color-bg-cream);
   }
   
-  .collage-item img {
+  .collage-item img, .collage-item video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -1063,7 +1099,7 @@
     border-color: var(--color-secondary);
   }
   
-  .collage-item:hover img {
+  .collage-item:hover img, .collage-item:hover video {
     transform: scale(1.05);
   }
   
